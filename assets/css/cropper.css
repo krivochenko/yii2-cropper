@@ -1,0 +1,21 @@
+.new_photo_area {
+    border: dashed 2px #EEEEEE;
+    box-sizing: content-box;
+    margin: 20px 0px;
+    text-align: center;
+    vertical-align: middle;
+}
+.new_photo_area .cropper_label {
+    cursor: pointer;
+    padding: 10px;
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+.new_photo_area .cropper_label span {
+    display: table-cell;
+    vertical-align: middle;
+}
+.new_photo_area img {
+    visibility: hidden;
+}
