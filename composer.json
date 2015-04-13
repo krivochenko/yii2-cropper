@@ -1,6 +1,6 @@
 {
     "name": "budyaga/yii2-cropper",
-    "description": "Yii-Framework extension for uploading and cropping images",
+    "description": "Yii-Framework widget for uploading and cropping images",
     "type": "yii2-extension",
     "keywords": ["yii2","extension","upload","crop"],
     "license": "BSD-3-Clause",
