@@ -17,7 +17,7 @@ use yii\helpers\Html;
     ); ?>
 
     <div class="cropper_buttons hidden">
-        <button type="button" class="btn btn-success crop_photo btn-sm" aria-label="<?= Yii::t('cropper', 'CROP_PHOTO');?>" data-crop-url="<?= $widget->cropUrl; ?>">
+        <button type="button" class="btn btn-success crop_photo btn-sm" aria-label="<?= Yii::t('cropper', 'CROP_PHOTO');?>">
             <span class="glyphicon glyphicon-scissors" aria-hidden="true"></span> <?= Yii::t('cropper', 'CROP_PHOTO');?>
         </button>
         <button type="button" class="btn btn-info upload_new_photo btn-sm aria-label="<?= Yii::t('cropper', 'UPLOAD_ANOTHER_PHOTO');?>">

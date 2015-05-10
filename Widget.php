@@ -14,7 +14,6 @@ class Widget extends InputWidget
     public $height = 200;
     public $label = '';
     public $uploadUrl;
-    public $cropUrl;
     public $noPhotoImage = '';
     public $maxSize = 2097152;
     public $cropAreaWidth = 300;
@@ -29,16 +28,10 @@ class Widget extends InputWidget
         parent::init();
         self::registerTranslations();
 
-        if ($this->cropUrl === null) {
-            throw new InvalidConfigException(Yii::t('cropper', 'MISSING_ATTRIBUTE', ['attribute' => 'cropUrl']));
-        } else {
-            $this->cropUrl = rtrim($this->cropUrl, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
-        }
-
         if ($this->uploadUrl === null) {
             throw new InvalidConfigException(Yii::t('cropper', 'MISSING_ATTRIBUTE', ['attribute' => 'uploadUrl']));
         } else {
-            $this->uploadUrl = rtrim(Yii::getAlias($this->uploadUrl), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+            $this->uploadUrl = rtrim(Yii::getAlias($this->uploadUrl), '/') . '/';
         }
 
         if ($this->label == '') {
