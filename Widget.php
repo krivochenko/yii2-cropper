@@ -82,7 +82,7 @@ class Widget extends InputWidget
         ];
 
         $view->registerJs(
-            'jQuery("#' . $this->options['id'] . '").siblings(".new_photo_area").uploader(' . Json::encode($settings) . ', ' . $this->width . ', ' . $this->height . ');',
+            'jQuery("#' . $this->options['id'] . '").siblings(".new_photo_area").cropper(' . Json::encode($settings) . ', ' . $this->width . ', ' . $this->height . ');',
             $view::POS_READY
         );
     }

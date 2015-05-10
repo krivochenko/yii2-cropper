@@ -1,5 +1,5 @@
 (function($) {
-	$.fn.uploader = function(options, width, height) {
+	$.fn.cropper = function(options, width, height) {
         var $widget = getWidget(this);
         var $progress = $widget.find('.progress');
         var buttons = [
