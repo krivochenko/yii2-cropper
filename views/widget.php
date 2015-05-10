@@ -30,4 +30,9 @@ use yii\helpers\Html;
             <span><?= $widget->label;?></span>
         </div>
     </div>
+    <div class="progress hidden" style="width: <?= $widget->cropAreaWidth; ?>px;">
+        <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" style="width: 0%">
+            <span class="sr-only"></span>
+        </div>
+    </div>
 </div>
