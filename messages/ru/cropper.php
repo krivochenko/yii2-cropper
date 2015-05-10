@@ -24,4 +24,6 @@ return [
     'MISSING_ATTRIBUTE' => 'Атрибут "{attribute}" должен быть указан',
     'ONLY_POST_REQUEST' => 'Допускается только POST-запрос',
     'UPLOAD_ANOTHER_PHOTO' => 'Загрузить другое фото',
+    'TOO_BIG_ERROR' => 'Превышен допустимый размер загружаемого файла ({size} Мб)',
+    'EXTENSION_ERROR' => 'Разрешены только следующие форматы файлов: {formats}'
 ];

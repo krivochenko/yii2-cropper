@@ -16,10 +16,10 @@ class Widget extends InputWidget
     public $uploadUrl;
     public $cropUrl;
     public $noPhotoImage = '';
-
+    public $maxSize = 2097152;
     public $cropAreaWidth = 300;
     public $cropAreaHeight = 300;
-
+    public $extensions = 'jpeg, jpg, png, gif';
 
     /**
      * @inheritdoc
@@ -74,9 +74,11 @@ class Widget extends InputWidget
         $settings = [
             'url' => $this->uploadUrl,
             'name' => $this->uploadParameter,
-            'data' => [
-                $request->csrfParam => $request->csrfToken
-            ]
+            'maxSize' => $this->maxSize / 1024,
+            'allowedExtensions' => ['jpg', 'jpeg', 'png', 'gif'],
+            'size_error_text' => Yii::t('cropper', 'TOO_BIG_ERROR', ['size' => $this->maxSize / (1024 * 1024)]),
+            'ext_error_text' => Yii::t('cropper', 'EXTENSION_ERROR', ['formats' => $this->extensions]),
+            'accept' => 'image/*'
         ];
 
         $view->registerJs(

@@ -24,4 +24,6 @@ return [
     'MISSING_ATTRIBUTE' => 'Attibute "{attribute}" must be specified',
     'ONLY_POST_REQUEST' => 'Allowed only POST-request',
     'UPLOAD_ANOTHER_PHOTO' => 'Upload another photo',
+    'TOO_BIG_ERROR' => 'Exceeded the allowable size of the file ({size} Mb)',
+    'EXTENSION_ERROR' => 'Enable only the following file formats: {formats}'
 ];
