@@ -51,7 +51,7 @@ class Widget extends InputWidget
      */
     public function run()
     {
-        $this->registerClientScript();
+        $this->registerClientAssets();
 
         return $this->render('widget', [
             'model' => $this->model,
@@ -62,13 +62,14 @@ class Widget extends InputWidget
     /**
      * Register widget asset.
      */
-    public function registerClientScript()
+    public function registerClientAssets()
     {
         $view = $this->getView();
+        $assets = Asset::register($view);
 
-        Asset::register($view);
-
-        $request = Yii::$app->getRequest();
+        if ($this->noPhotoImage == '') {
+            $this->noPhotoImage = $assets->baseUrl . '/img/nophoto.png';
+        }
 
         $settings = [
             'url' => $this->uploadUrl,
