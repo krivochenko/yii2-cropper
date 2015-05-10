@@ -21,6 +21,9 @@ or add
 
 to the require section of your `composer.json` file.
 
+Differences from the first version
+-----
+Second version use JavaScript FileAPI for showing image without preloading to the server. Also this version has client validation.
 
 Usage
 -----
@@ -34,66 +37,58 @@ use budyaga\cropper\Widget;
 
 ```
 <?php $form = ActiveForm::begin(['id' => 'form-profile']); ?>
-	<?= $form->field($model, 'photo')->widget(Widget::className(), [
-		'noPhotoImage' => '/img/nophoto.png',
-		'width' => User::PHOTO_WIDTH,
-		'height' => User::PHOTO_HEIGHT,
-		'cropAreaWidth' => User::TMP_PHOTO_WIDTH,
-		'cropAreaHeight' => User::TMP_PHOTO_HEIGHT,
-		'uploadUrl' => Url::toRoute('/user/uploadPhoto'),
-		'cropUrl' => Url::toRoute('/user/cropPhoto'),
-	]) ?>
-	<div class="form-group">
-		<?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
-	</div>
+    <?= $form->field($model, 'photo')->widget(Widget::className(), [
+        'uploadUrl' => Url::toRoute('/user/user/uploadPhoto'),
+    ]) ?>
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+    </div>
 <?php ActiveForm::end(); ?>
 ```
+Widget has following properties:
 
-Add following constanses in User model:
+| Name     | Description    | Default |  Required   |
+| --------|---------|-------|------|
+| uploadParameter  | Upload parameter name | file    |No |
+| width  | The final width of the image after cropping | 200    |No |
+| height  | The final height of the image after cropping | 200    |No |
+| label  | Hint in box for preview | It depends on application language. You can translate this message on your language and make pull-request.    |No |
+| uploadUrl  | URL for uploading and cropping image |     |Yes |
+| noPhotoImage  | The picture, which is used when a photo is not loaded. | You can see it on screenshots in this instructions   |No |
+| maxSize  | The maximum file size (kb).  | 2097152    |No |
+| cropAreaWidth  | Width box for preview | 300    |No |
+| cropAreaHeight  | Height box for preview | 300    |No |
+| extensions  | Allowed file extensions (string). | jpeg, jpg, png, gif    |No |
 
-```
-const PHOTO_WIDTH = 200; //final image width
-const PHOTO_HEIGHT = 200; //final image height
-
-const TMP_PHOTO_WIDTH = 300; //image width after uploading but before cropping
-const TMP_PHOTO_HEIGHT = 300; //image height after uploading but before cropping
-
-const TMP_PHOTO_URL = '/uploads/user/tmp_photo'; //url uploaded image
-const PHOTO_URL = '/uploads/user/photo'; //url finaly image
-
-const TMP_PHOTO_PATH = '@webroot/uploads/user/tmp_photo'; //directory for uploading before cropping
-const PHOTO_PATH = '@webroot/uploads/user/photo'; //directory for saving finaly image after cropping
-```
 
 In UserController:
 
 ```
 public function actions()
 {
-	return [
-		'uploadPhoto' => [
-			'class' => 'budyaga\cropper\actions\UploadAction',
-			'url' => User::TMP_PHOTO_URL,
-			'tmpPath' => User::TMP_PHOTO_PATH,
-			//options for validation uploaded image http://www.yiiframework.com/doc-2.0/yii-validators-imagevalidator.html
-			'validatorOptions' => [ 
-				'maxWidth' => 2000,
-				'maxHeight' => 2000
-			],
-			'width' => User::TMP_PHOTO_WIDTH,
-			'height' => User::TMP_PHOTO_HEIGHT
-		],
-		'cropPhoto' => [
-			'class' => 'budyaga\cropper\actions\CropAction',
-			'url' => User::PHOTO_URL,
-			'path' => User::PHOTO_PATH,
-			'tmpPath' => User::TMP_PHOTO_PATH,
-			'width' => User::PHOTO_WIDTH,
-            'height' => User::PHOTO_HEIGHT
-		]
-	];
+    return [
+        'uploadPhoto' => [
+            'class' => 'budyaga\cropper\actions\UploadAction',
+            'url' => 'http://your_domain.com/uploads/user/photo',
+            'path' => '@frontend/web/uploads/user/photo',
+        ]
+    ];
 }
 ```
+Action has following parameters:
+
+| Name     | Description    | Default |  Required   |
+| --------|---------|-------|------|
+| path  | Path for saving image after cripping |     |Yes |
+| url  | URL to which the downloaded images will be available. |  |Yes |
+| uploadParameter  | Upload parameter name. It must match the value of a similar parameter of the widget. | file    |No |
+| maxSize  | The maximum file size (kb). It must match the value of a similar parameter of the widget. | 2097152    |No |
+| extensions  | Allowed file extensions (string). It must match the value of a similar parameter of the widget. | jpeg, jpg, png, gif    |No |
+| width  | The final width of the image after cropping. It must match the value of a similar parameter of the widget. | 200    |No |
+| height  | The final height of the image after cropping. It must match the value of a similar parameter of the widget. | 200    |No |
+
+
+You can use this widget on frontend and backend. For example: user can change his userpic and administrator can change users userpic.
 
 Operates as follows:
 --------------------
@@ -102,7 +97,7 @@ User click on new photo area or drag file
 
 ![g4n7fva](https://cloud.githubusercontent.com/assets/7313306/7107319/a09bb4a0-e16a-11e4-9ac5-f57509ba841b.png)
 
-The picture is downloaded and saved in the directory TMP_PHOTO_PATH. The downloaded image is available TMP_PHOTO_URL/new_image_name
+The picture is loaded by JavaScript FileAPI.
 
 ![yeul3gy](https://cloud.githubusercontent.com/assets/7313306/7107329/02f3eeba-e16b-11e4-9f9d-fb07944a91df.png)
 
@@ -110,6 +105,6 @@ This picture is displayed in the widget and users have the ability to crop it or
 
 ![jaungjk](https://cloud.githubusercontent.com/assets/7313306/7107356/8581f3ae-e16b-11e4-8151-d08a4d16f1a0.png)
 
-When the user clicks "Crop image", the server sends a request to crop the image. As a result of the request, a copy of the cropped image is saved in PHOTO_PATH. The cropped image is available at PHOTO_URL/crop_image_name. This picture is displayed in the form, and user can save it, or change crop area, or upload another photo.
+When the user clicks "Crop image", a request with file and coordinates is sent to the server. This picture is displayed in the form, and user can save it, or change crop area, or upload another photo.
 
 ![0ejh55q](https://cloud.githubusercontent.com/assets/7313306/7107359/bddeae36-e16b-11e4-889b-484d7dbad8a5.png)
