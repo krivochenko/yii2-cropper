@@ -18,10 +18,10 @@ class UploadAction extends Action
     public $tmpPath;
     public $url;
     public $uploadParam = 'file';
-    public $validatorOptions = [];
-
-    public $width = 300;
-    public $height = 300;
+    public $maxSize = 2097152;
+    public $extensions = 'jpeg, jpg, png, gif';
+    public $width = 200;
+    public $height = 200;
 
     /**
      * @inheritdoc
@@ -49,7 +49,12 @@ class UploadAction extends Action
         if (Yii::$app->request->isPost) {
             $file = UploadedFile::getInstanceByName($this->uploadParam);
             $model = new DynamicModel(compact($this->uploadParam));
-            $model->addRule($this->uploadParam, 'image', $this->validatorOptions)->validate();
+            $model->addRule($this->uploadParam, 'image', [
+                'maxSize' => $this->maxSize,
+                'tooBig' => Yii::t('cropper', 'TOO_BIG_ERROR', ['size' => $this->maxSize / (1024 * 1024)]),
+                'extensions' => explode(', ', $this->extensions),
+                'wrongExtension' => Yii::t('cropper', 'EXTENSION_ERROR', ['formats' => $this->extensions])
+            ])->validate();
 
             if ($model->hasErrors()) {
                 $result = [
