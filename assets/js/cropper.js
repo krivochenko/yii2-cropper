@@ -117,9 +117,9 @@
 
     function showError($widget, error) {
         if (error == '') {
-            $widget.parents('.form-group').removeClass('has-error').find('.help-block-error').text('');
+            $widget.parents('.form-group').removeClass('has-error').find('.help-block').text('');
         } else {
-            $widget.parents('.form-group').addClass('has-error').find('.help-block-error').text(error);
+            $widget.parents('.form-group').addClass('has-error').find('.help-block').text(error);
         }
     }
 
