@@ -75,6 +75,8 @@
                     showError($widget, response.error);
                     return;
                 }
+                showError($widget, '');
+
                 $widget.find('.thumbnail').attr({'src': response.filelink});
                 $widget.find('.photo_field').val(response.filelink);
             },
