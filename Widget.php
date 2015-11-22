@@ -2,6 +2,7 @@
 
 namespace budyaga\cropper;
 
+use budyaga\cropper\assets\CropperAsset;
 use yii\base\InvalidConfigException;
 use yii\helpers\Json;
 use yii\widgets\InputWidget;
@@ -58,7 +59,7 @@ class Widget extends InputWidget
     public function registerClientAssets()
     {
         $view = $this->getView();
-        $assets = Asset::register($view);
+        $assets = CropperAsset::register($view);
 
         if ($this->noPhotoImage == '') {
             $this->noPhotoImage = $assets->baseUrl . '/img/nophoto.png';
