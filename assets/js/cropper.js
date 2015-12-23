@@ -25,7 +25,7 @@
                         return false;
                     }
 
-                    if (!inArray(options['allowedExtensions'], extension)) {
+                    if (!inArray(options['allowedExtensions'], extension.toLowerCase())) {
                         showError($widget, options['ext_error_text']);
                         $progress.addClass('hidden');
                         return false;
