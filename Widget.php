@@ -68,7 +68,7 @@ class Widget extends InputWidget
             'url' => $this->uploadUrl,
             'name' => $this->uploadParameter,
             'maxSize' => $this->maxSize / 1024,
-            'allowedExtensions' => ['jpg', 'jpeg', 'png', 'gif'],
+            'allowedExtensions' => explode(', ', $this->extensions),
             'size_error_text' => Yii::t('cropper', 'TOO_BIG_ERROR', ['size' => $this->maxSize / (1024 * 1024)]),
             'ext_error_text' => Yii::t('cropper', 'EXTENSION_ERROR', ['formats' => $this->extensions]),
             'accept' => 'image/*'
