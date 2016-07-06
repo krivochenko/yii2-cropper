@@ -1,13 +1,13 @@
 {
-    "name": "budyaga/yii2-cropper",
-    "description": "Yii-Framework widget for uploading and cropping images",
+    "name": "mr-maslo/yii2-cropper",
+    "description": "Fork \"budyaga/yii2-cropper\": Yii-Framework widget for uploading and cropping images",
     "type": "yii2-extension",
     "keywords": ["yii2","extension","upload","crop"],
     "license": "BSD-3-Clause",
     "authors": [
         {
-            "name": "Sergey Krivochenko",
-            "email": "budyaga@gmail.com"
+            "name": "Alexey Maslennikov",
+            "email": "a.a.maslennikov@gmail.com"
         }
     ],
     "require": {
