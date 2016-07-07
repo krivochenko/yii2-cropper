@@ -37,11 +37,11 @@ use budyaga\cropper\Widget;
 
 ```
 <?php $form = ActiveForm::begin(['id' => 'form-profile']); ?>
-    <?= $form->field($model, 'photo')->widget(Widget::className(), [
+    <?php echo $form->field($model, 'photo')->widget(Widget::className(), [
         'uploadUrl' => Url::toRoute('/user/user/uploadPhoto'),
     ]) ?>
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+        <?php echo Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
     </div>
 <?php ActiveForm::end(); ?>
 ```
