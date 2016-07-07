@@ -17,19 +17,19 @@ use yii\helpers\Html;
             : $widget->noPhotoImage,
         [
             'style' => 'height: ' . $widget->height . 'px; width: ' . $widget->width . 'px',
-            'class' => 'thumbnail center-block',
+            'class' => 'thumbnail',
             'data-no-photo' => $widget->noPhotoImage
         ]
     ); ?>
 
-    <div class="cropper-buttons hidden">
+    <div class="cropper-buttons">
         <button type="button" class="btn btn-sm btn-danger delete-photo" aria-label="<?php echo Yii::t('cropper', 'DELETE_PHOTO');?>">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <?php echo Yii::t('cropper', 'DELETE_PHOTO');?>
         </button>
-        <button type="button" class="btn btn-sm btn-success crop-photo" aria-label="<?php echo Yii::t('cropper', 'CROP_PHOTO');?>">
+        <button type="button" class="btn btn-sm btn-success crop-photo hidden" aria-label="<?php echo Yii::t('cropper', 'CROP_PHOTO');?>">
             <span class="glyphicon glyphicon-scissors" aria-hidden="true"></span> <?php echo Yii::t('cropper', 'CROP_PHOTO');?>
         </button>
-        <button type="button" class="btn btn-sm btn-info upload-new-photo" aria-label="<?php echo Yii::t('cropper', 'UPLOAD_ANOTHER_PHOTO');?>">
+        <button type="button" class="btn btn-sm btn-info upload-new-photo hidden" aria-label="<?php echo Yii::t('cropper', 'UPLOAD_ANOTHER_PHOTO');?>">
             <span class="glyphicon glyphicon-picture" aria-hidden="true"></span> <?php echo Yii::t('cropper', 'UPLOAD_ANOTHER_PHOTO');?>
         </button>
     </div>

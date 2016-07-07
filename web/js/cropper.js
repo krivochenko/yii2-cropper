@@ -119,7 +119,7 @@
                 },
                 setProgress: function (value) {
                     if (value) {
-                        cropper.$cropper_buttons.removeClass('hidden');
+                        cropper.$cropper_buttons.find('button').removeClass('hidden');
                         cropper.$cropper_label.addClass('hidden');
                         cropper.$progress.removeClass('hidden');
                         cropper.$progress_bar.css({'width': value + '%'});
