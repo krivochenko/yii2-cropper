@@ -11,12 +11,14 @@ use yii\helpers\Html;
 
 <div class="cropper-widget">
     <?php echo Html::activeHiddenInput($model, $widget->attribute, ['class' => 'photo-field']); ?>
+    <?php echo Html::hiddenInput('width', $widget->width, ['class' => 'width-input']); ?>
+    <?php echo Html::hiddenInput('height', $widget->height, ['class' => 'height-input']); ?>
     <?php echo Html::img(
         $model->{$widget->attribute} != ''
             ? $model->{$widget->attribute}
             : $widget->noPhotoImage,
         [
-            'style' => 'height: ' . $widget->height . 'px; width: ' . $widget->width . 'px',
+            'style' => 'height: ' . $widget->thumbnailHeight . 'px; width: ' . $widget->thumbnailWidth . 'px',
             'class' => 'thumbnail',
             'data-no-photo' => $widget->noPhotoImage
         ]

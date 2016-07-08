@@ -1,6 +1,6 @@
 (function ($) {
     $.fn.cropper = function (options, width, height) {
-        var $widget = $(this).parent('.cropper-widget'),
+        var $widget = $(this).closest('.cropper-widget'),
             $progress = $widget.find('.progress'),
             cropper = {
                 $widget: $widget,
@@ -12,6 +12,8 @@
                 $new_photo_area: $widget.find('.new-photo-area'),
                 $cropper_label: $widget.find('.cropper-label'),
                 $cropper_buttons: $widget.find('.cropper-buttons'),
+                $width_input: $widget.find('.width-input'),
+                $height_input: $widget.find('.height-input'),
                 uploader: null,
                 reader: null,
                 selectedFile: null,
@@ -95,6 +97,8 @@
                         .on('click', '.crop-photo', function () {
                             var data = cropper.$img.data('Jcrop').tellSelect();
                             data[yii.getCsrfParam()] = yii.getCsrfToken();
+                            data['width'] = cropper.$width_input.val();
+                            data['height'] = cropper.$height_input.val();
 
                             if (cropper.uploader._queue.length) {
                                 cropper.selectedFile = cropper.uploader._queue[0];

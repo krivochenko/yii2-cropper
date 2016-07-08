@@ -17,6 +17,8 @@ class Widget extends InputWidget
     public $uploadUrl;
     public $noPhotoImage = '';
     public $maxSize = 2097152;
+    public $thumbnailWidth = 300;
+    public $thumbnailHeight = 300;
     public $cropAreaWidth = 300;
     public $cropAreaHeight = 300;
     public $extensions = 'jpeg, jpg, png, gif';
@@ -76,7 +78,7 @@ class Widget extends InputWidget
         ];
 
         $view->registerJs(
-            'jQuery("#' . $this->options['id'] . '").siblings(".new-photo-area").cropper(' . Json::encode($settings) . ', ' . $this->width . ', ' . $this->height . ');',
+            'jQuery("#' . $this->options['id'] . '").parent().find(".new-photo-area").cropper(' . Json::encode($settings) . ', ' . $this->thumbnailWidth . ', ' . $this->thumbnailHeight . ');',
             $view::POS_READY
         );
     }
