@@ -22,6 +22,7 @@ class Widget extends InputWidget
     public $cropAreaWidth = 300;
     public $cropAreaHeight = 300;
     public $extensions = 'jpeg, jpg, png, gif';
+    public $onCompleteJcrop;
 
     /**
      * @inheritdoc
@@ -76,6 +77,9 @@ class Widget extends InputWidget
             'ext_error_text' => Yii::t('cropper', 'EXTENSION_ERROR', ['formats' => $this->extensions]),
             'accept' => 'image/*'
         ];
+
+        if ($this->onCompleteJcrop)
+            $settings['onCompleteJcrop'] = $this->onCompleteJcrop;
 
         $view->registerJs(
             'jQuery("#' . $this->options['id'] . '").parent().find(".new-photo-area").cropper(' . Json::encode($settings) . ', ' . $this->thumbnailWidth . ', ' . $this->thumbnailHeight . ');',
