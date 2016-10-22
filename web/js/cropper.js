@@ -34,7 +34,8 @@
                             aspectRatio: width / height,
                             setSelect: [x1, y1, x2, y2],
                             boxWidth: cropper.$new_photo_area.width(),
-                            boxHeight: cropper.$new_photo_area.height()
+                            boxHeight: cropper.$new_photo_area.height(),
+                            keySupport: false
                         });
 
                         cropper.setProgress(0);
@@ -77,6 +78,10 @@
 
                             cropper.$thumbnail.attr({'src': response['filelink']});
                             cropper.$photo_field.val(response['filelink']);
+                            if ((typeof options.onCompleteJcrop !== "undefined") && (typeof options.onCompleteJcrop === "string")) {
+                                eval('var onCompleteJcrop = ' + options.onCompleteJcrop);
+                                onCompleteJcrop(filename, response);
+                            }
                         },
                         onSizeError: function () {
                             cropper.showError(options['size_error_text']);
