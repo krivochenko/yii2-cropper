@@ -1,5 +1,5 @@
 {
-    "name": "budyaga/yii2-cropper",
+    "name": "nyatw/yii2-cropper",
     "description": "Yii-Framework widget for uploading and cropping images",
     "type": "yii2-extension",
     "keywords": ["yii2","extension","upload","crop"],
