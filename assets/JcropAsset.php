@@ -1,6 +1,6 @@
 <?php
 
-namespace budyaga\cropper\assets;
+namespace nyatw\cropper\assets;
 
 use yii\web\AssetBundle;
 
