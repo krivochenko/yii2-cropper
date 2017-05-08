@@ -25,18 +25,23 @@
                         cropper.$new_photo_area.append('<img src="' + e.target.result + '">');
                         cropper.$img = cropper.$new_photo_area.find('img');
 
-                        var x1 = (cropper.$img.width() - width) / 2;
-                        var y1 = (cropper.$img.height() - height) / 2;
-                        var x2 = x1 + width;
-                        var y2 = y1 + height;
+                        var image = new Image();
+                        image.src = e.target.result;
 
-                        cropper.$img.Jcrop({
-                            aspectRatio: width / height,
-                            setSelect: [x1, y1, x2, y2],
-                            boxWidth: cropper.$new_photo_area.width(),
-                            boxHeight: cropper.$new_photo_area.height(),
-                            keySupport: false
-                        });
+                        image.onload = function() {
+                            var x1 = (this.width - width) / 2;
+                            var y1 = (this.height - height) / 2;
+                            var x2 = x1 + width;
+                            var y2 = y1 + height;
+
+                            cropper.$img.Jcrop({
+                                aspectRatio: width / height,
+                                setSelect: [x1, y1, x2, y2],
+                                boxWidth: cropper.$new_photo_area.width(),
+                                boxHeight: cropper.$new_photo_area.height(),
+                                keySupport: false
+                            });
+                        };
 
                         cropper.setProgress(0);
                     };
