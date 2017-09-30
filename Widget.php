@@ -82,7 +82,7 @@ class Widget extends InputWidget
             $settings['onCompleteJcrop'] = $this->onCompleteJcrop;
 
         $view->registerJs(
-            'jQuery("#' . $this->options['id'] . '").parent().find(".new-photo-area").cropper(' . Json::encode($settings) . ', ' . $this->thumbnailWidth . ', ' . $this->thumbnailHeight . ');',
+            'jQuery("#' . $this->options['id'] . '").parent().find(".new-photo-area").cropper(' . Json::encode($settings) . ', ' . $this->width . ', ' . $this->height . ');',
             $view::POS_READY
         );
     }

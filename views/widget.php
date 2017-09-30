@@ -18,7 +18,7 @@ use yii\helpers\Html;
             ? $model->{$widget->attribute}
             : $widget->noPhotoImage,
         [
-            'style' => 'height: ' . $widget->thumbnailHeight . 'px; width: ' . $widget->thumbnailWidth . 'px',
+            'style' => 'max-height: ' . $widget->thumbnailHeight . 'px; max-width: ' . $widget->thumbnailWidth . 'px',
             'class' => 'thumbnail',
             'data-no-photo' => $widget->noPhotoImage
         ]
