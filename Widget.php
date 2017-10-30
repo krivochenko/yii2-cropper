@@ -23,6 +23,7 @@ class Widget extends InputWidget
     public $cropAreaHeight = 300;
     public $extensions = 'jpeg, jpg, png, gif';
     public $onCompleteJcrop;
+    public $pluginOptions = [];
 
     /**
      * @inheritdoc
@@ -68,7 +69,7 @@ class Widget extends InputWidget
             $this->noPhotoImage = $assets->baseUrl . '/img/nophoto.png';
         }
 
-        $settings = [
+        $settings = array_merge([
             'url' => $this->uploadUrl,
             'name' => $this->uploadParameter,
             'maxSize' => $this->maxSize / 1024,
@@ -76,7 +77,7 @@ class Widget extends InputWidget
             'size_error_text' => Yii::t('cropper', 'TOO_BIG_ERROR', ['size' => $this->maxSize / (1024 * 1024)]),
             'ext_error_text' => Yii::t('cropper', 'EXTENSION_ERROR', ['formats' => $this->extensions]),
             'accept' => 'image/*'
-        ];
+        ], $this->pluginOptions);
 
         if ($this->onCompleteJcrop)
             $settings['onCompleteJcrop'] = $this->onCompleteJcrop;
