@@ -25,5 +25,6 @@ return [
     'ONLY_POST_REQUEST' => 'Допустимий лише POST-запит',
     'UPLOAD_ANOTHER_PHOTO' => 'Завантажити інше фото',
     'TOO_BIG_ERROR' => 'Максимальний розмір фала перевищений ({size} Мб)',
-    'EXTENSION_ERROR' => 'Дозволені лише наступні формати файлів: {formats}'
+    'EXTENSION_ERROR' => 'Дозволені лише наступні формати файлів: {formats}',
+    'ERROR_NO_SAVE_DIR' => 'Директорії для збереження не існує!'
 ];
