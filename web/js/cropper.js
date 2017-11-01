@@ -33,9 +33,10 @@
                             var y1 = (this.height - height) / 2;
                             var x2 = x1 + width;
                             var y2 = y1 + height;
-
+                            var aspectRatio = (options.aspectRatio !== null && options.aspectRatio !== 'undefined') ? options.aspectRatio : width / height;
+                            
                             cropper.$img.Jcrop({
-                                aspectRatio: width / height,
+                                aspectRatio: aspectRatio,
                                 setSelect: [x1, y1, x2, y2],
                                 boxWidth: cropper.$new_photo_area.width(),
                                 boxHeight: cropper.$new_photo_area.height(),
