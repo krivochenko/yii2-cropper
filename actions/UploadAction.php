@@ -82,7 +82,7 @@ class UploadAction extends Action
                     ;
                 }
 
-                if ($image->save($this->path . $model->{$this->uploadParam}->name), ['jpeg_quality' => 100, 'png_compression_level' => 1]) {
+                if ($image->save($this->path . $model->{$this->uploadParam}->name, ['jpeg_quality' => 100, 'png_compression_level' => 1])) {
                     $result = [
                         'filelink' => $this->url . $model->{$this->uploadParam}->name
                     ];
