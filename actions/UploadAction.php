@@ -80,16 +80,16 @@ class UploadAction extends Action
                     $result = [
                         'error' => Yii::t('cropper', 'ERROR_NO_SAVE_DIR')]
                     ;
-                }
-
-                if ($image->save($this->path . $model->{$this->uploadParam}->name, ['jpeg_quality' => 100, 'png_compression_level' => 1])) {
-                    $result = [
-                        'filelink' => $this->url . $model->{$this->uploadParam}->name
-                    ];
                 } else {
-                    $result = [
-                        'error' => Yii::t('cropper', 'ERROR_CAN_NOT_UPLOAD_FILE')]
-                    ;
+                    if ($image->save($this->path . $model->{$this->uploadParam}->name, ['jpeg_quality' => 100, 'png_compression_level' => 1])) {
+                        $result = [
+                            'filelink' => $this->url . $model->{$this->uploadParam}->name
+                        ];
+                    } else {
+                        $result = [
+                            'error' => Yii::t('cropper', 'ERROR_CAN_NOT_UPLOAD_FILE')]
+                        ;
+                    }
                 }
             }
             Yii::$app->response->format = Response::FORMAT_JSON;
