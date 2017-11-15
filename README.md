@@ -58,6 +58,7 @@ Widget has following properties:
 | maxSize  | The maximum file size (kb).  | 2097152    |No |
 | cropAreaWidth  | Width box for preview | 300    |No |
 | cropAreaHeight  | Height box for preview | 300    |No |
+| aspectRatio | Fix aspect ratio of cropping area | null |No |
 | extensions  | Allowed file extensions (string). | jpeg, jpg, png, gif    |No |
 
 
