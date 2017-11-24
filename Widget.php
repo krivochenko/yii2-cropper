@@ -37,7 +37,7 @@ class Widget extends InputWidget
         if ($this->uploadUrl === null) {
             throw new InvalidConfigException(Yii::t('cropper', 'MISSING_ATTRIBUTE', ['attribute' => 'uploadUrl']));
         } else {
-            $this->uploadUrl = rtrim(Yii::getAlias($this->uploadUrl), '/') . '/';
+            $this->uploadUrl = rtrim(Yii::getAlias($this->uploadUrl), '/');
         }
 
         if ($this->label == '') {
