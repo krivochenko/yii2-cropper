@@ -22,6 +22,8 @@ class UploadAction extends Action
     public $extensions = 'jpeg, jpg, png, gif';
     public $width = 200;
     public $height = 200;
+    public $jpegQuality = 100;
+    public $pngCompressionLevel = 1;
 
     /**
      * @inheritdoc
@@ -75,20 +77,21 @@ class UploadAction extends Action
                 )->resize(
                     new Box($width, $height)
                 );
-                
+
                 if (!file_exists($this->path) || !is_dir($this->path)) {
                     $result = [
                         'error' => Yii::t('cropper', 'ERROR_NO_SAVE_DIR')]
                     ;
                 } else {
-                    if ($image->save($this->path . $model->{$this->uploadParam}->name, ['jpeg_quality' => 100, 'png_compression_level' => 1])) {
+                    $saveOptions = ['jpeg_quality' => $this->jpegQuality, 'png_compression_level' => $this->pngCompressionLevel];
+                    if ($image->save($this->path . $model->{$this->uploadParam}->name, $saveOptions)) {
                         $result = [
                             'filelink' => $this->url . $model->{$this->uploadParam}->name
                         ];
                     } else {
                         $result = [
-                            'error' => Yii::t('cropper', 'ERROR_CAN_NOT_UPLOAD_FILE')]
-                        ;
+                            'error' => Yii::t('cropper', 'ERROR_CAN_NOT_UPLOAD_FILE')
+                        ];
                     }
                 }
             }
