@@ -24,6 +24,7 @@ class Widget extends InputWidget
     public $extensions = 'jpeg, jpg, png, gif';
     public $onCompleteJcrop;
     public $pluginOptions = [];
+    public $aspectRatio = null;
 
     /**
      * @inheritdoc
@@ -76,8 +77,12 @@ class Widget extends InputWidget
             'allowedExtensions' => explode(', ', $this->extensions),
             'size_error_text' => Yii::t('cropper', 'TOO_BIG_ERROR', ['size' => $this->maxSize / (1024 * 1024)]),
             'ext_error_text' => Yii::t('cropper', 'EXTENSION_ERROR', ['formats' => $this->extensions]),
-            'accept' => 'image/*'
+            'accept' => 'image/*',
         ], $this->pluginOptions);
+
+        if(is_numeric($this->aspectRatio)) {
+                $settings['aspectRatio'] = $this->aspectRatio;
+        }
 
         if ($this->onCompleteJcrop)
             $settings['onCompleteJcrop'] = $this->onCompleteJcrop;
