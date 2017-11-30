@@ -21,10 +21,6 @@ or add
 
 to the require section of your `composer.json` file.
 
-Differences from the first version
------
-Second version use JavaScript FileAPI for showing image without preloading to the server. Also this version has client validation.
-
 Usage
 -----
 
@@ -87,6 +83,8 @@ Action has following parameters:
 | extensions  | Allowed file extensions (string). It must match the value of a similar parameter of the widget. | jpeg, jpg, png, gif    |No |
 | width  | The final width of the image after cropping. It must match the value of a similar parameter of the widget. | 200    |No |
 | height  | The final height of the image after cropping. It must match the value of a similar parameter of the widget. | 200    |No |
+| jpegQuality  | Quality of cropped image (JPG) | 100    |No |
+| pngCompressionLevel  | Quality of cropped image (PNG) | 1    |No |
 
 
 You can use this widget on frontend and backend. For example: user can change his userpic and administrator can change users userpic.
