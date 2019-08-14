@@ -91,7 +91,7 @@
                         },
                         onSizeError: function () {
                             cropper.showError(options['size_error_text']);
-                            cropper.cropper.setProgress(0);
+                            cropper.setProgress(0);
                         },
                         onExtError: function () {
                             cropper.showError(options['ext_error_text']);
