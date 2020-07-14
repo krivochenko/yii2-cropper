@@ -17,14 +17,14 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'DEFAULT_LABEL' => 'Для завантаження гового фото, натисніть тут або перетащіть файл сюди',
+    'DEFAULT_LABEL' => 'Для завантаження нового фото, натисніть тут або перетягніть файл сюди',
     'CROP_PHOTO' => 'Обрізати фото',
     'DELETE_PHOTO' => 'Видалити фото',
     'ERROR_CAN_NOT_UPLOAD_FILE' => 'Неможливо завантажити файл',
     'MISSING_ATTRIBUTE' => 'Атрибут "{attribute}" повинен бути вказаний',
     'ONLY_POST_REQUEST' => 'Допустимий лише POST-запит',
     'UPLOAD_ANOTHER_PHOTO' => 'Завантажити інше фото',
-    'TOO_BIG_ERROR' => 'Максимальний розмір фала перевищений ({size} Мб)',
+    'TOO_BIG_ERROR' => 'Максимальний розмір файлу перевищений ({size} Мб)',
     'EXTENSION_ERROR' => 'Дозволені лише наступні формати файлів: {formats}',
     'ERROR_NO_SAVE_DIR' => 'Директорії для збереження не існує!'
 ];
