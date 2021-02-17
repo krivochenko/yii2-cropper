@@ -21,7 +21,7 @@ return [
     'CROP_PHOTO' => 'Crop image',
     'DELETE_PHOTO' => 'Delete image',
     'ERROR_CAN_NOT_UPLOAD_FILE' => 'Can`t upload file',
-    'MISSING_ATTRIBUTE' => 'Attibute "{attribute}" must be specified',
+    'MISSING_ATTRIBUTE' => 'Attribute "{attribute}" must be specified',
     'ONLY_POST_REQUEST' => 'Allowed only POST-request',
     'UPLOAD_ANOTHER_PHOTO' => 'Upload another photo',
     'TOO_BIG_ERROR' => 'Exceeded the allowable size of the file ({size} Mb)',
