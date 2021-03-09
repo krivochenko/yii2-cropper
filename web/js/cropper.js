@@ -91,7 +91,7 @@
                         },
                         onSizeError: function () {
                             cropper.showError(options['size_error_text']);
-                            cropper.cropper.setProgress(0);
+                            cropper.setProgress(0);
                         },
                         onExtError: function () {
                             cropper.showError(options['ext_error_text']);
@@ -127,9 +127,9 @@
                 },
                 showError: function (error) {
                     if (error == '') {
-                        cropper.$widget.parents('.form-group').removeClass('has-error').find('.help-block').text('');
+                        cropper.$widget.parents('.form-group').removeClass('has-error').find('.invalid-feedback').text('').hide();
                     } else {
-                        cropper.$widget.parents('.form-group').addClass('has-error').find('.help-block').text(error);
+                        cropper.$widget.parents('.form-group').addClass('has-error').find('.invalid-feedback').text(error).show();
                     }
                 },
                 setProgress: function (value) {
