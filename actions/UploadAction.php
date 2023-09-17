@@ -2,9 +2,11 @@
 
 namespace budyaga\cropper\actions;
 
+use Imagine\Image\Point;
 use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\base\InvalidConfigException;
+use yii\imagine\BaseImage;
 use yii\web\BadRequestHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
@@ -66,16 +68,25 @@ class UploadAction extends Action
                 $model->{$this->uploadParam}->name = uniqid() . '.' . $model->{$this->uploadParam}->extension;
                 $request = Yii::$app->request;
 
+                // desired props
                 $width = $request->post('width', $this->width);
                 $height = $request->post('height', $this->height);
 
-                $image = Image::crop(
-                    $file->tempName . $request->post('filename'),
-                    intval($request->post('w')),
-                    intval($request->post('h')),
-                    [$request->post('x'), $request->post('y')]
-                )->resize(
-                    new Box($width, $height)
+                // get image with expected proportions before crop
+                $adjustedImage = $this->getAjustedImage(
+                    $file->tempName,
+                    $width,
+                    $height
+                );
+
+                $image = $this->cropImage(
+                    $adjustedImage,
+                    $width,
+                    $height,
+                    $request->post('x'),
+                    $request->post('y'),
+                    $request->post('x2'),
+                    $request->post('y2'),
                 );
 
                 if (!file_exists($this->path) || !is_dir($this->path)) {
@@ -101,5 +112,78 @@ class UploadAction extends Action
         } else {
             throw new BadRequestHttpException(Yii::t('cropper', 'ONLY_POST_REQUEST'));
         }
+    }
+
+    /**
+     * Adjust inputed image for desired final proportions
+     *
+     * @param string $file_path
+     * @param int $finalWidth for width calc
+     * @param int $finalHeight for height calc
+     *
+     * @return \Imagine\Image\ImageInterface
+     */
+    protected function getAjustedImage(string $file_path, int $finalWidth, int $finalHeight)
+    {
+        $originalImage = Image::getImagine()->open($file_path);
+        $sizes = $originalImage->getSize();
+
+        // calcs props by desired final sizes
+        if ($sizes->getWidth() > $sizes->getHeight()) {
+            $backWidth = $sizes->getWidth();
+            $backHeight = $sizes->getWidth() * ($finalWidth / $finalHeight);
+        } else {
+            $backWidth = $sizes->getHeight() * ($finalHeight / $finalWidth);
+            $backHeight = $sizes->getHeight();
+        }
+
+        $image = Image::getImagine()
+            ->create(new Box($backWidth, $backHeight)) // back layout
+            ->paste( // our image pasted on top
+                $originalImage->resize(
+                    $originalImage->getSize()->widen($backWidth)
+                ),
+                new Point(
+                    0, 0
+                )
+            );
+
+        return $image;
+    }
+
+    /**
+     * Crop inputed image
+     *
+     * @param \Imagine\Gd\Image $image
+     * @param int $width final width
+     * @param int $height final height
+     * @param int $x
+     * @param int $y
+     * @param int $x2
+     * @param int $y2
+     *
+     * @return \Imagine\Image\ImageInterface
+     */
+    protected function cropImage(\Imagine\Gd\Image $image, int $width, int $height, int $x, int $y, int $x2, int $y2)
+    {
+        // get sizes of imagefor props calculating
+        $sizes = $image->getSize();
+
+        // get points X and Y, and size of fileds to crop
+        $propX = ceil($sizes->getWidth() / ($width / $x));
+        $propY = ceil($sizes->getHeight() / ($height / $y));
+        $propW = ceil(($x2 - $x) * ($sizes->getWidth() / $width));
+        $propH = ceil(($y2 - $y) * ($sizes->getHeight() / $height));
+
+        $cropedImage = Image::crop(
+            $image,
+            intval($propW),
+            intval($propH),
+            [$propX, $propY]
+        )->resize(
+            new Box($width, $height)
+        );
+
+        return $cropedImage;
     }
 }
